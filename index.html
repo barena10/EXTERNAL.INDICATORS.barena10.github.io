@@ -1,22 +1,4 @@
-<div class="indicator-card">
-                        <div class="signal-badge signal-buy">BLUE = BUY</div>
-                        <div class="indicator-title">Net Unrealised P/L by Cohort</div>
-                        <div class="indicator-description">Blue zones → BUY (good for bear markets)</div>
-                        <div class="iframe-container">
-                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/unrealised/nupl_bycohort/nupl_bycohort_light.html')">⛶</div>
-                            <div class="loading-overlay">
-                                <div class="spinner"></div>
-                                Loading NUPL...
-                            </div>
-                            <iframe src="https://charts.checkonchain.com/btconchain/unrealised/nupl_bycohort/nupl_bycohort_light.html"></iframe>
-                        </div>
-                    </div>
-
-                    <div class="indicator-card">
-                        <div class="signal-badge signal-neutral">FLOWS</div>
-                        <div class="indicator-title">LTH Supply vs ETF vs MicroStrategy</div>
-                        <div class="indicator-description">Long-term holder dynamics with institutional flows</div>
-                        <div class="<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -183,7 +165,7 @@
         .fullscreen-btn {
             position: absolute;
             top: 10px;
-            left: 10px;
+            right: 10px;
             background: rgba(255, 215, 0, 0.9);
             color: #000;
             border: none;
@@ -254,10 +236,16 @@
             background: #cc0000;
         }
 
+        .fullscreen-iframe {
+            width: 100%;
+            height: calc(100% - 50px);
+            border: none;
+        }
+
         .signal-badge {
             position: absolute;
             top: 10px;
-            right: 10px;
+            left: 10px;
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.8em;
@@ -418,7 +406,7 @@
                         <div class="indicator-title">Bitcoin Value Range System</div>
                         <div class="indicator-description">Below -2.00 → BUY | Above 2.00 → SELL</div>
                         <div class="iframe-container">
-                            <div class="fullscreen-btn" onclick="openFullscreen('https://alphaextract.webflow.io/charts/bvrs-dynamic')">⛶</div>
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/pricing/pricing_mayermultiple/pricing_mayermultiple_light.html')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading BVRS...
@@ -552,6 +540,7 @@
                         <div class="indicator-title">Net Unrealised P/L by Cohort</div>
                         <div class="indicator-description">Blue zones → BUY (good for bear markets)</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/unrealised/nupl_bycohort/nupl_bycohort_light.html')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading NUPL...
@@ -565,6 +554,7 @@
                         <div class="indicator-title">LTH Supply vs ETF vs MicroStrategy</div>
                         <div class="indicator-description">Long-term holder dynamics with institutional flows</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://cryptoquant.com/analytics/query/675574c4494b0e68b4859434?v=675574c4494b0e68b4859436')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading Supply Analysis...
@@ -578,6 +568,7 @@
                         <div class="indicator-title">Bitcoin Funding Rates</div>
                         <div class="indicator-description">Perpetual futures funding rate analysis</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://cryptoquant.com/asset/btc/chart/derivatives/funding-rates?exchange=all_exchange&window=DAY&sma=0&ema=0&priceScale=log&metricScale=linear&chartStyle=column')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading Funding Rates...
@@ -598,7 +589,7 @@
                     <div class="indicator-title">Global Liquidity Bands & ETH</div>
                     <div class="indicator-description">ETH below green line → BUY opportunity</div>
                     <div class="iframe-container">
-                        <div class="fullscreen-btn" onclick="openFullscreen('https://cryptoquant.com/asset/eth/chart/eth2/total-value-staked?window=DAY&priceScale=log&metricScale=linear&chartStyle=line&sma=0&ema=0')">⛶</div>
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://cryptoquant.com/analytics/query/66e5e9e042286374a3636edd?v=66e5e9e042286374a3636ede')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading ETH Liquidity...
@@ -612,6 +603,7 @@
                     <div class="indicator-title">Ethereum Total Value Staked</div>
                     <div class="indicator-description">White line touches blue → SELL | Below blue → BUY</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://cryptoquant.com/asset/eth/chart/eth2/total-value-staked?window=DAY&priceScale=log&metricScale=linear&chartStyle=line&sma=0&ema=0')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading ETH Staking...
@@ -625,6 +617,7 @@
                     <div class="indicator-title">Ethereum MVRV Ratio</div>
                     <div class="indicator-description">Above 1.5 → SELL | 0.8 or below → BUY</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://cryptoquant.com/analytics/query/64b514efd3b74754036eab78?v=64b514efd3b74754036eab7a')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading ETH MVRV...
@@ -638,6 +631,7 @@
                     <div class="indicator-title">ETH ETFs Net Flow</div>
                     <div class="indicator-description">Ethereum ETF institutional flow tracking</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://coinmarketcap.com/etf/ethereum/')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading ETH ETFs...
@@ -657,6 +651,7 @@
                     <div class="indicator-title">Altcoin Season Index</div>
                     <div class="indicator-description">Track when altcoins outperform Bitcoin</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://www.blockchaincenter.net/en/altcoin-season-index/')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading Altcoin Season...
@@ -669,222 +664,4 @@
                     <div class="signal-badge signal-neutral">SPECULATION</div>
                     <div class="indicator-title">Speculation Index</div>
                     <div class="indicator-description">Market speculation and altcoin momentum</div>
-                    <div class="iframe-container">
-                        <div class="loading-overlay">
-                            <div class="spinner"></div>
-                            Loading Speculation Index...
-                        </div>
-                        <iframe src="https://capriole.com/charts/?chart=altcoins-chart"></iframe>
-                    </div>
-                </div>
-
-                <div class="indicator-card">
-                    <div class="signal-badge signal-neutral">LIQUIDATIONS</div>
-                    <div class="indicator-title">Liquidation Heat Map</div>
-                    <div class="indicator-description">Futures liquidation levels and zones</div>
-                    <div class="iframe-container">
-                        <div class="loading-overlay">
-                            <div class="spinner"></div>
-                            Loading Liquidations...
-                        </div>
-                        <iframe src="https://www.coinglass.com/pro/futures/LiquidationHeatMap"></iframe>
-                    </div>
-                </div>
-
-                <div class="indicator-card">
-                    <div class="signal-badge signal-neutral">ADOPTION</div>
-                    <div class="indicator-title">Coinbase App Store Ranking</div>
-                    <div class="indicator-description">Crypto app adoption and mainstream interest</div>
-                    <div class="iframe-container">
-                        <div class="loading-overlay">
-                            <div class="spinner"></div>
-                            Loading App Rankings...
-                        </div>
-                        <iframe src="https://www.theblock.co/data/alternative-crypto-metrics/app-usage/crypto-apps-ranking-on-the-app-store-in-the-us"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Historical Performance -->
-        <div class="section">
-            <h2>📈 Historical Performance & Trends</h2>
-            <div class="grid">
-                <div class="indicator-card">
-                    <div class="signal-badge signal-neutral">HISTORY</div>
-                    <div class="indicator-title">BTC Yearly Returns (10Y)</div>
-                    <div class="indicator-description">Bitcoin annual performance over last decade</div>
-                    <div class="iframe-container">
-                        <div class="loading-overlay">
-                            <div class="spinner"></div>
-                            Loading BTC Returns...
-                        </div>
-                        <iframe src="https://www.statmuse.com/money/ask/bitcoin-yearly-returns-last-10-years"></iframe>
-                    </div>
-                </div>
-
-                <div class="indicator-card">
-                    <div class="signal-badge signal-neutral">TRENDS</div>
-                    <div class="indicator-title">Google Trends</div>
-                    <div class="indicator-description">Search interest and public attention metrics</div>
-                    <div class="iframe-container">
-                        <div class="loading-overlay">
-                            <div class="spinner"></div>
-                            Loading Google Trends...
-                        </div>
-                        <iframe src="https://platform.alphractal.com/dashboard?subCategoryName=Favorites&chartName=Google%20Trends"></iframe>
-                    </div>
-                </div>
-
-                <div class="indicator-card">
-                    <div class="signal-badge signal-neutral">FLOWS</div>
-                    <div class="indicator-title">BTC ETFs Net Flow</div>
-                    <div class="indicator-description">Bitcoin ETF institutional investment flows</div>
-                    <div class="iframe-container">
-                        <div class="loading-overlay">
-                            <div class="spinner"></div>
-                            Loading BTC ETFs...
-                        </div>
-                        <iframe src="https://sosovalue.com/pt/assets/etf/us-btc-spot"></iframe>
-                    </div>
-                </div>
-
-                <div class="indicator-card">
-                    <div class="signal-badge signal-neutral">MACRO</div>
-                    <div class="indicator-title">ETH Macro Index</div>
-                    <div class="indicator-description">Ethereum macroeconomic correlation analysis</div>
-                    <div class="iframe-container">
-                        <div class="loading-overlay">
-                            <div class="spinner"></div>
-                            Loading ETH Macro...
-                        </div>
-                        <iframe src="https://capriole.com/charts/?chart=macro-index-eth"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Fullscreen Modal -->
-    <div class="fullscreen-modal" id="fullscreenModal">
-        <div class="fullscreen-content">
-            <div class="fullscreen-header">
-                <span id="fullscreenTitle">Chart Viewer</span>
-                <button class="close-fullscreen" onclick="closeFullscreen()">×</button>
-            </div>
-            <iframe class="fullscreen-iframe" id="fullscreenIframe" src=""></iframe>
-        </div>
-    </div>
-
-    <script>
-        // Fullscreen functionality
-        function openFullscreen(url) {
-            const modal = document.getElementById('fullscreenModal');
-            const iframe = document.getElementById('fullscreenIframe');
-            const title = document.getElementById('fullscreenTitle');
-            
-            iframe.src = url;
-            title.textContent = 'Trading Indicator - Fullscreen View';
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeFullscreen() {
-            const modal = document.getElementById('fullscreenModal');
-            const iframe = document.getElementById('fullscreenIframe');
-            
-            modal.style.display = 'none';
-            iframe.src = '';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeFullscreen();
-            }
-        });
-
-        // Close on background click
-        document.getElementById('fullscreenModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeFullscreen();
-            }
-        });
-
-        // Remove loading overlays when iframes load
-        document.addEventListener('DOMContentLoaded', function() {
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                iframe.addEventListener('load', function() {
-                    const overlay = this.parentElement.querySelector('.loading-overlay');
-                    if (overlay) {
-                        overlay.style.display = 'none';
-                    }
-                });
-                
-                // Remove loading overlay after 10 seconds as fallback
-                setTimeout(() => {
-                    const overlay = iframe.parentElement.querySelector('.loading-overlay');
-                    if (overlay) {
-                        overlay.style.display = 'none';
-                    }
-                }, 10000);
-            });
-        });
-
-        // Tab switching functionality
-        function switchTab(evt, tabName) {
-            const tabContents = document.querySelectorAll('.tab-content');
-            const tabs = document.querySelectorAll('.tab');
-            
-            tabContents.forEach(content => content.classList.remove('active'));
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            document.getElementById(tabName).classList.add('active');
-            evt.currentTarget.classList.add('active');
-        }
-
-        // Auto-refresh iframes every 5 minutes
-        setInterval(() => {
-            const iframes = document.querySelectorAll('iframe');
-            iframes.forEach(iframe => {
-                const src = iframe.src;
-                iframe.src = '';
-                setTimeout(() => {
-                    iframe.src = src;
-                }, 100);
-            });
-        }, 300000); // 5 minutes
-
-        // Add keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey || e.metaKey) {
-                switch(e.key) {
-                    case '1':
-                        e.preventDefault();
-                        document.querySelector('[onclick*="btc-primary"]').click();
-                        break;
-                    case '2':
-                        e.preventDefault();
-                        document.querySelector('[onclick*="btc-advanced"]').click();
-                        break;
-                    case '3':
-                        e.preventDefault();
-                        document.querySelector('[onclick*="btc-onchain"]').click();
-                        break;
-                }
-            }
-        });
-
-        // Add fullscreen functionality
-        document.querySelectorAll('.indicator-card').forEach(card => {
-            card.addEventListener('dblclick', function() {
-                if (this.requestFullscreen) {
-                    this.requestFullscreen();
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                    <div class="iframe-container
