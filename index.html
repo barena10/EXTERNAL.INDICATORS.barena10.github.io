@@ -1,134 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TradingView & Indicators</title>
-  <style>
-    body { background-color: #111; color: #fff; font-family: Arial, sans-serif; }
-    iframe { width: 100%; height: 500px; border: none; }
-    .indicator-board { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
-    .indicator { background: #222; padding: 10px; border-radius: 5px; }
-    .timeframe button { margin-right: 5px; padding: 5px 10px; }
-    .timeframe .active { background: #00aaff; color: #fff; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Crypto Trading Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffd700;
+            overflow-x: auto;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #000000 0%, #333333 50%, #000000 100%);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 3px solid #ffd700;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 20px;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            color: #ffd700;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #ffd700;
+            padding-bottom: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .indicator-card {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .indicator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            border-color: #ffed4e;
+        }
+
+        .indicator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            transition: left 0.5s;
+        }
+
+        .indicator-card:hover::before {
+            left: 100%;
+        }
+
+        .indicator-title {
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .indicator-description {
+            color: #cccccc;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .iframe-container {
+            position: relative;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ffd700;
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd700;
+            font-size: 1.2em;
+            z-index: 10;
+        }
+
+        .spinner {
+            border: 3px solid #333;
+            border-top: 3px solid #ffd700;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .signal-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .signal-buy {
+            background: #00ff00;
+            color: #000;
+        }
+
+        .signal-sell {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .signal-neutral {
+            background: #ffd700;
+            color: #000;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            color: #ffd700;
+            font-size: 1em;
+        }
+
+        .tab.active {
+            background: #ffd700;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>TradingView + Indicator Board</h1>
-  <div class="timeframe">
-    <button onclick="setTimeframe('1w')" class="active">1W</button>
-    <button onclick="setTimeframe('1d')">1D</button>
-    <button onclick="setTimeframe('4h')">4H</button>
-  </div>
-  <iframe id="tvChart"></iframe>
-  <div class="indicator-board" id="indicatorBoard"></div>
+    <div class="header">
+        <h1>🚀 ULTIMATE CRYPTO TRADING DASHBOARD 🚀</h1>
+        <p>Advanced Analytics & Market Intelligence Hub</p>
+    </div>
 
-  <script>
-    let asset = 'BTCUSDT';
-    let timeframe = '1w';
-    let indicatorValues = {};
-    let price = 0;
+    <div class="container">
+        <!-- Market Sentiment & Macro -->
+        <div class="section">
+            <h2>📊 Market Sentiment & Macro Analysis</h2>
+            <div class="grid">
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">MACRO</div>
+                    <div class="indicator-title">CME FedWatch Tool</div>
+                    <div class="indicator-description">Federal Reserve interest rate probabilities</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading CME FedWatch...
+                        </div>
+                        <iframe src="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"></iframe>
+                    </div>
+                </div>
 
-    function updateTradingView() {
-      const tvURL = `https://s.tradingview.com/widgetembed/?symbol=BINANCE:${asset}&interval=${timeframe.toUpperCase()}&theme=dark&style=1&studies=["IchimokuCloud","MACD4C","RodizRSIEMA","Stochastic","TrendSupportBand","VPVR"]`;
-      document.getElementById('tvChart').src = tvURL;
-    }
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">PREDICTION</div>
+                    <div class="indicator-title">Polymarket</div>
+                    <div class="indicator-description">Prediction markets for crypto and macro events</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading Polymarket...
+                        </div>
+                        <iframe src="https://polymarket.com/"></iframe>
+                    </div>
+                </div>
 
-    async function fetchPrice() {
-      const res = await fetch(`https://fapi.binance.com/fapi/v1/ticker/price?symbol=${asset}`);
-      const data = await res.json();
-      price = parseFloat(data.price);
-    }
+                <div class="indicator-card">
+                    <div class="signal-badge signal-sell">EXTREME GREED = SELL</div>
+                    <div class="indicator-title">Fear & Greed Index</div>
+                    <div class="indicator-description">Extreme Greed → SELL | Extreme Fear → BUY (DCA)</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading Fear & Greed...
+                        </div>
+                        <iframe src="https://coinmarketcap.com/charts/fear-and-greed-index/"></iframe>
+                    </div>
+                </div>
 
-    async function fetchCandleData(symbol, interval = '1w', limit = 100) {
-      const response = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`);
-      const data = await response.json();
-      return data.map(candle => parseFloat(candle[4])); // Close prices
-    }
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">EVENTS</div>
+                    <div class="indicator-title">Crypto Calendar</div>
+                    <div class="indicator-description">Important upcoming crypto events and releases</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading Calendar...
+                        </div>
+                        <iframe src="https://coinmarketcap.com/events/"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    function calculateRSI(closes, period = 14) {
-      let gains = 0, losses = 0;
-      for (let i = 1; i <= period; i++) {
-        const diff = closes[i] - closes[i - 1];
-        if (diff >= 0) gains += diff;
-        else losses -= diff;
-      }
-      let avgGain = gains / period;
-      let avgLoss = losses / period;
-      for (let i = period + 1; i < closes.length; i++) {
-        const diff = closes[i] - closes[i - 1];
-        avgGain = (avgGain * (period - 1) + (diff > 0 ? diff : 0)) / period;
-        avgLoss = (avgLoss * (period - 1) + (diff < 0 ? -diff : 0)) / period;
-      }
-      const rs = avgGain / avgLoss;
-      return 100 - 100 / (1 + rs);
-    }
+        <!-- Bitcoin Core Indicators -->
+        <div class="section">
+            <h2>₿ Bitcoin Core Cycle Analysis</h2>
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab(event, 'btc-primary')">Primary Signals</button>
+                <button class="tab" onclick="switchTab(event, 'btc-advanced')">Advanced Models</button>
+                <button class="tab" onclick="switchTab(event, 'btc-onchain')">On-Chain Metrics</button>
+            </div>
 
-    function calculateMACD(closes, shortPeriod = 12, longPeriod = 26) {
-      const ema = (data, period) => {
-        const k = 2 / (period + 1);
-        return data.reduce((acc, val, i) => {
-          if (i === 0) acc.push(val);
-          else acc.push(val * k + acc[i - 1] * (1 - k));
-          return acc;
-        }, []);
-      };
-      const shortEMA = ema(closes, shortPeriod);
-      const longEMA = ema(closes, longPeriod);
-      return shortEMA.at(-1) - longEMA.at(-1);
-    }
+            <div class="tab-content active" id="btc-primary">
+                <div class="grid">
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-buy">< -2.00 = BUY</div>
+                        <div class="indicator-title">Bitcoin Value Range System</div>
+                        <div class="indicator-description">Below -2.00 → BUY | Above 2.00 → SELL</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading BVRS...
+                            </div>
+                            <iframe src="https://alphaextract.webflow.io/charts/bvrs-dynamic"></iframe>
+                        </div>
+                    </div>
 
-    function calculateStochastic(closes, period = 14) {
-      const recent = closes.slice(-period);
-      const high = Math.max(...recent);
-      const low = Math.min(...recent);
-      return ((closes.at(-1) - low) / (high - low)) * 100;
-    }
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-buy">GREEN ZONE = BUY</div>
+                        <div class="indicator-title">BVRS Trend Component</div>
+                        <div class="indicator-description">Red zones = BUY opportunities | Green zones = SELL signals</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading BVRS Trend...
+                            </div>
+                            <iframe src="https://alphaextract.webflow.io/charts/bvrs-trend"></iframe>
+                        </div>
+                    </div>
 
-    async function calculateIndicators() {
-      await fetchPrice();
-      const closes = await fetchCandleData(asset, timeframe, 100);
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-sell">RED LINE = SELL</div>
+                        <div class="indicator-title">Bitcoin Intra Cycle Valuation</div>
+                        <div class="indicator-description">Red line touch → SELL | Below green line → BUY</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading Intra Cycle...
+                            </div>
+                            <iframe src="https://alphaextract.webflow.io/charts/intra-cycle"></iframe>
+                        </div>
+                    </div>
 
-      indicatorValues.rsi = calculateRSI(closes).toFixed(2);
-      indicatorValues.macd = calculateMACD(closes).toFixed(2);
-      indicatorValues.stochastic = calculateStochastic(closes).toFixed(2);
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-buy">GREEN = BOTTOM</div>
+                        <div class="indicator-title">AE Cycle Bands</div>
+                        <div class="indicator-description">Below green = Bear market bottom | Red touch = SELL</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading Cycle Bands...
+                            </div>
+                            <iframe src="https://alphaextract.webflow.io/charts/cycle-bands"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      const avgPrice = closes.slice(-20).reduce((a, b) => a + b, 0) / 20;
-      indicatorValues.vwap = price > avgPrice ? 'above' : 'below';
+            <div class="tab-content" id="btc-advanced">
+                <div class="grid">
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-neutral">CYCLE</div>
+                        <div class="indicator-title">Stock-to-Flow Model</div>
+                        <div class="indicator-description">Shows which part of BTC cycle we're in</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading S2F...
+                            </div>
+                            <iframe src="https://www.bitcoinmagazinepro.com/charts/stock-to-flow-model/"></iframe>
+                        </div>
+                    </div>
 
-      const tenkan = (Math.max(...closes.slice(-9)) + Math.min(...closes.slice(-9))) / 2;
-      const kijun = (Math.max(...closes.slice(-26)) + Math.min(...closes.slice(-26))) / 2;
-      indicatorValues.ichimoku = price > tenkan && tenkan > kijun ? 'bullish' :
-                                price < tenkan && tenkan < kijun ? 'bearish' : 'neutral';
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-sell">ABOVE GREEN = SELL</div>
+                        <div class="indicator-title">Pi Cycle Top Indicator</div>
+                        <div class="indicator-description">Above/near green = SELL | Below orange = BUY</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading Pi Cycle...
+                            </div>
+                            <iframe src="https://www.bitcoinmagazinepro.com/charts/pi-cycle-top-indicator/"></iframe>
+                        </div>
+                    </div>
 
-      const priceVolatility = Math.abs(price - avgPrice) / avgPrice;
-      indicatorValues.vpvr = priceVolatility > 0.02 ? 'high_volume_node' : 'low_volume_node';
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-buy">< 0.8 = BUY</div>
+                        <div class="indicator-title">Value Days Destroyed (VDD)</div>
+                        <div class="indicator-description">Above 2 → check SELL | Below 0.8 & green → BUY</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading VDD...
+                            </div>
+                            <iframe src="https://www.bitcoinmagazinepro.com/charts/value-days-destroyed-multiple/"></iframe>
+                        </div>
+                    </div>
 
-      updateIndicatorDisplay();
-    }
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-neutral">HALVING</div>
+                        <div class="indicator-title">Bitcoin Halving Cycle</div>
+                        <div class="indicator-description">Track BTC price vs halving epochs</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading Halving Cycle...
+                            </div>
+                            <iframe src="https://charts.checkonchain.com/btconchain/technical/technical_epochcycle_price_0/technical_epochcycle_price_0_light.html"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    function updateIndicatorDisplay() {
-      const board = document.getElementById('indicatorBoard');
-      board.innerHTML = '';
-      for (const [key, value] of Object.entries(indicatorValues)) {
-        const div = document.createElement('div');
-        div.className = 'indicator';
-        div.innerText = `${key.toUpperCase()}: ${value}`;
-        board.appendChild(div);
-      }
-    }
+            <div class="tab-content" id="btc-onchain">
+                <div class="grid">
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-buy">ORANGE > RED = SELL</div>
+                        <div class="indicator-title">AASI - Active Address Sentiment</div>
+                        <div class="indicator-description">Orange > red → SELL | Orange touches green → BUY</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading AASI...
+                            </div>
+                            <iframe src="https://alphaextract.webflow.io/charts/aasi"></iframe>
+                        </div>
+                    </div>
 
-    function setTimeframe(tf) {
-      timeframe = tf;
-      document.querySelectorAll('.timeframe button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      updateTradingView();
-      calculateIndicators();
-    }
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-buy">BLUE = BUY</div>
+                        <div class="indicator-title">Net Unrealised P/L by Cohort</div>
+                        <div class="indicator-description">Blue zones → BUY (good for bear markets)</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading NUPL...
+                            </div>
+                            <iframe src="https://charts.checkonchain.com/btconchain/unrealised/nupl_bycohort/nupl_bycohort_light.html"></iframe>
+                        </div>
+                    </div>
 
-    updateTradingView();
-    calculateIndicators();
-    setInterval(calculateIndicators, 60000);
-  </script>
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-neutral">FLOWS</div>
+                        <div class="indicator-title">LTH Supply vs ETF vs MicroStrategy</div>
+                        <div class="indicator-description">Long-term holder dynamics with institutional flows</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading Supply Analysis...
+                            </div>
+                            <iframe src="https://cryptoquant.com/analytics/query/675574c4494b0e68b4859434?v=675574c4494b0e68b4859436"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-neutral">FUNDING</div>
+                        <div class="indicator-title">Bitcoin Funding Rates</div>
+                        <div class="indicator-description">Perpetual futures funding rate analysis</div>
+                        <div class="iframe-container">
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading Funding Rates...
+                            </div>
+                            <iframe src="https://cryptoquant.com/asset/btc/chart/derivatives/funding-rates?exchange=all_exchange&window=DAY&sma=0&ema=0&priceScale=log&metricScale=linear&chartStyle=column"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ethereum Analysis -->
+        <div class="section">
+            <h2>⟠ Ethereum Analysis Hub</h2>
+            <div class="grid">
+                <div class="indicator-card">
+                    <div class="signal-badge signal-buy">GREEN LINE = BUY</div>
+                    <div class="indicator-title">Global Liquidity Bands & ETH</div>
+                    <div class="indicator-description">ETH below green line → BUY opportunity</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading ETH Liquidity...
+                        </div>
+                        <iframe src="https://alphaextract.webflow.io/charts/liquidity-eth-bands"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-sell">WHITE TOUCH BLUE = SELL</div>
+                    <div class="indicator-title">Ethereum Total Value Staked</div>
+                    <div class="indicator-description">White line touches blue → SELL | Below blue → BUY</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading ETH Staking...
+                        </div>
+                        <iframe src="https://cryptoquant.com/asset/eth/chart/eth2/total-value-staked?window=DAY&priceScale=log&metricScale=linear&chartStyle=line&sma=0&ema=0"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-sell">ABOVE 1.5 = SELL</div>
+                    <div class="indicator-title">Ethereum MVRV Ratio</div>
+                    <div class="indicator-description">Above 1.5 → SELL | 0.8 or below → BUY</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading ETH MVRV...
+                        </div>
+                        <iframe src="https://cryptoquant.com/analytics/query/64b514efd3b74754036eab78?v=64b514efd3b74754036eab7a"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">FLOWS</div>
+                    <div class="indicator-title">ETH ETFs Net Flow</div>
+                    <div class="indicator-description">Ethereum ETF institutional flow tracking</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading ETH ETFs...
+                        </div>
+                        <iframe src="https://coinmarketcap.com/etf/ethereum/"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Altcoin & Market Structure -->
+        <div class="section">
+            <h2>🌟 Altcoin Season & Market Structure</h2>
+            <div class="grid">
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">SEASON</div>
+                    <div class="indicator-title">Altcoin Season Index</div>
+                    <div class="indicator-description">Track when altcoins outperform Bitcoin</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading Altcoin Season...
+                        </div>
+                        <iframe src="https://www.blockchaincenter.net/en/altcoin-season-index/"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">SPECULATION</div>
+                    <div class="indicator-title">Speculation Index</div>
+                    <div class="indicator-description">Market speculation and altcoin momentum</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading Speculation Index...
+                        </div>
+                        <iframe src="https://capriole.com/charts/?chart=altcoins-chart"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">LIQUIDATIONS</div>
+                    <div class="indicator-title">Liquidation Heat Map</div>
+                    <div class="indicator-description">Futures liquidation levels and zones</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading Liquidations...
+                        </div>
+                        <iframe src="https://www.coinglass.com/pro/futures/LiquidationHeatMap"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">ADOPTION</div>
+                    <div class="indicator-title">Coinbase App Store Ranking</div>
+                    <div class="indicator-description">Crypto app adoption and mainstream interest</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading App Rankings...
+                        </div>
+                        <iframe src="https://www.theblock.co/data/alternative-crypto-metrics/app-usage/crypto-apps-ranking-on-the-app-store-in-the-us"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical Performance -->
+        <div class="section">
+            <h2>📈 Historical Performance & Trends</h2>
+            <div class="grid">
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">HISTORY</div>
+                    <div class="indicator-title">BTC Yearly Returns (10Y)</div>
+                    <div class="indicator-description">Bitcoin annual performance over last decade</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading BTC Returns...
+                        </div>
+                        <iframe src="https://www.statmuse.com/money/ask/bitcoin-yearly-returns-last-10-years"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">TRENDS</div>
+                    <div class="indicator-title">Google Trends</div>
+                    <div class="indicator-description">Search interest and public attention metrics</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading Google Trends...
+                        </div>
+                        <iframe src="https://platform.alphractal.com/dashboard?subCategoryName=Favorites&chartName=Google%20Trends"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">FLOWS</div>
+                    <div class="indicator-title">BTC ETFs Net Flow</div>
+                    <div class="indicator-description">Bitcoin ETF institutional investment flows</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading BTC ETFs...
+                        </div>
+                        <iframe src="https://sosovalue.com/pt/assets/etf/us-btc-spot"></iframe>
+                    </div>
+                </div>
+
+                <div class="indicator-card">
+                    <div class="signal-badge signal-neutral">MACRO</div>
+                    <div class="indicator-title">ETH Macro Index</div>
+                    <div class="indicator-description">Ethereum macroeconomic correlation analysis</div>
+                    <div class="iframe-container">
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            Loading ETH Macro...
+                        </div>
+                        <iframe src="https://capriole.com/charts/?chart=macro-index-eth"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Remove loading overlays when iframes load
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.addEventListener('load', function() {
+                    const overlay = this.parentElement.querySelector('.loading-overlay');
+                    if (overlay) {
+                        overlay.style.display = 'none';
+                    }
+                });
+                
+                // Remove loading overlay after 10 seconds as fallback
+                setTimeout(() => {
+                    const overlay = iframe.parentElement.querySelector('.loading-overlay');
+                    if (overlay) {
+                        overlay.style.display = 'none';
+                    }
+                }, 10000);
+            });
+        });
+
+        // Tab switching functionality
+        function switchTab(evt, tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabs = document.querySelectorAll('.tab');
+            
+            tabContents.forEach(content => content.classList.remove('active'));
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // Auto-refresh iframes every 5 minutes
+        setInterval(() => {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                const src = iframe.src;
+                iframe.src = '';
+                setTimeout(() => {
+                    iframe.src = src;
+                }, 100);
+            });
+        }, 300000); // 5 minutes
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        document.querySelector('[onclick*="btc-primary"]').click();
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        document.querySelector('[onclick*="btc-advanced"]').click();
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        document.querySelector('[onclick*="btc-onchain"]').click();
+                        break;
+                }
+            }
+        });
+
+        // Add fullscreen functionality
+        document.querySelectorAll('.indicator-card').forEach(card => {
+            card.addEventListener('dblclick', function() {
+                if (this.requestFullscreen) {
+                    this.requestFullscreen();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
