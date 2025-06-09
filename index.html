@@ -1,4 +1,22 @@
-<!DOCTYPE html>
+<div class="indicator-card">
+                        <div class="signal-badge signal-buy">BLUE = BUY</div>
+                        <div class="indicator-title">Net Unrealised P/L by Cohort</div>
+                        <div class="indicator-description">Blue zones → BUY (good for bear markets)</div>
+                        <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/unrealised/nupl_bycohort/nupl_bycohort_light.html')">⛶</div>
+                            <div class="loading-overlay">
+                                <div class="spinner"></div>
+                                Loading NUPL...
+                            </div>
+                            <iframe src="https://charts.checkonchain.com/btconchain/unrealised/nupl_bycohort/nupl_bycohort_light.html"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card">
+                        <div class="signal-badge signal-neutral">FLOWS</div>
+                        <div class="indicator-title">LTH Supply vs ETF vs MicroStrategy</div>
+                        <div class="indicator-description">Long-term holder dynamics with institutional flows</div>
+                        <div class="<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -162,6 +180,80 @@
             100% { transform: rotate(360deg); }
         }
 
+        .fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 215, 0, 0.9);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 20;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .fullscreen-btn:hover {
+            background: #ffed4e;
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .fullscreen-content {
+            width: 95%;
+            height: 95%;
+            margin: 2.5%;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .fullscreen-header {
+            background: linear-gradient(90deg, #000000, #ffd700, #000000);
+            padding: 15px;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .close-fullscreen {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .close-fullscreen:hover {
+            background: #cc0000;
+        }
+
         .signal-badge {
             position: absolute;
             top: 10px;
@@ -257,6 +349,7 @@
                     <div class="indicator-title">CME FedWatch Tool</div>
                     <div class="indicator-description">Federal Reserve interest rate probabilities</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading CME FedWatch...
@@ -270,6 +363,7 @@
                     <div class="indicator-title">Polymarket</div>
                     <div class="indicator-description">Prediction markets for crypto and macro events</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://polymarket.com/')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading Polymarket...
@@ -283,6 +377,7 @@
                     <div class="indicator-title">Fear & Greed Index</div>
                     <div class="indicator-description">Extreme Greed → SELL | Extreme Fear → BUY (DCA)</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://coinmarketcap.com/charts/fear-and-greed-index/')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading Fear & Greed...
@@ -296,6 +391,7 @@
                     <div class="indicator-title">Crypto Calendar</div>
                     <div class="indicator-description">Important upcoming crypto events and releases</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://coinmarketcap.com/events/')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading Calendar...
@@ -322,11 +418,12 @@
                         <div class="indicator-title">Bitcoin Value Range System</div>
                         <div class="indicator-description">Below -2.00 → BUY | Above 2.00 → SELL</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://alphaextract.webflow.io/charts/bvrs-dynamic')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading BVRS...
                             </div>
-                            <iframe src="https://alphaextract.webflow.io/charts/bvrs-dynamic"></iframe>
+                            <iframe src="https://charts.checkonchain.com/btconchain/pricing/pricing_mayermultiple/pricing_mayermultiple_light.html"></iframe>
                         </div>
                     </div>
 
@@ -335,11 +432,12 @@
                         <div class="indicator-title">BVRS Trend Component</div>
                         <div class="indicator-description">Red zones = BUY opportunities | Green zones = SELL signals</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/pricing/pricing_onchainoriginals/pricing_onchainoriginals_light.html')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading BVRS Trend...
                             </div>
-                            <iframe src="https://alphaextract.webflow.io/charts/bvrs-trend"></iframe>
+                            <iframe src="https://charts.checkonchain.com/btconchain/pricing/pricing_onchainoriginals/pricing_onchainoriginals_light.html"></iframe>
                         </div>
                     </div>
 
@@ -348,11 +446,12 @@
                         <div class="indicator-title">Bitcoin Intra Cycle Valuation</div>
                         <div class="indicator-description">Red line touch → SELL | Below green line → BUY</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/confluence/confluence_cycleextremeoscillators_1/confluence_cycleextremeoscillators_1_light.html')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading Intra Cycle...
                             </div>
-                            <iframe src="https://alphaextract.webflow.io/charts/intra-cycle"></iframe>
+                            <iframe src="https://charts.checkonchain.com/btconchain/confluence/confluence_cycleextremeoscillators_1/confluence_cycleextremeoscillators_1_light.html"></iframe>
                         </div>
                     </div>
 
@@ -361,11 +460,12 @@
                         <div class="indicator-title">AE Cycle Bands</div>
                         <div class="indicator-description">Below green = Bear market bottom | Red touch = SELL</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/pricing/pricing_costbasisoriginals/pricing_costbasisoriginals_light.html')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading Cycle Bands...
                             </div>
-                            <iframe src="https://alphaextract.webflow.io/charts/cycle-bands"></iframe>
+                            <iframe src="https://charts.checkonchain.com/btconchain/pricing/pricing_costbasisoriginals/pricing_costbasisoriginals_light.html"></iframe>
                         </div>
                     </div>
                 </div>
@@ -378,6 +478,7 @@
                         <div class="indicator-title">Stock-to-Flow Model</div>
                         <div class="indicator-description">Shows which part of BTC cycle we're in</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://www.bitcoinmagazinepro.com/charts/stock-to-flow-model/')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading S2F...
@@ -391,6 +492,7 @@
                         <div class="indicator-title">Pi Cycle Top Indicator</div>
                         <div class="indicator-description">Above/near green = SELL | Below orange = BUY</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://www.bitcoinmagazinepro.com/charts/pi-cycle-top-indicator/')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading Pi Cycle...
@@ -404,6 +506,7 @@
                         <div class="indicator-title">Value Days Destroyed (VDD)</div>
                         <div class="indicator-description">Above 2 → check SELL | Below 0.8 & green → BUY</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://www.bitcoinmagazinepro.com/charts/value-days-destroyed-multiple/')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading VDD...
@@ -417,6 +520,7 @@
                         <div class="indicator-title">Bitcoin Halving Cycle</div>
                         <div class="indicator-description">Track BTC price vs halving epochs</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/technical/technical_epochcycle_price_0/technical_epochcycle_price_0_light.html')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading Halving Cycle...
@@ -434,11 +538,12 @@
                         <div class="indicator-title">AASI - Active Address Sentiment</div>
                         <div class="indicator-description">Orange > red → SELL | Orange touches green → BUY</div>
                         <div class="iframe-container">
+                            <div class="fullscreen-btn" onclick="openFullscreen('https://charts.checkonchain.com/btconchain/realised/sellsideriskratio_all/sellsideriskratio_all_light.html')">⛶</div>
                             <div class="loading-overlay">
                                 <div class="spinner"></div>
                                 Loading AASI...
                             </div>
-                            <iframe src="https://alphaextract.webflow.io/charts/aasi"></iframe>
+                            <iframe src="https://charts.checkonchain.com/btconchain/realised/sellsideriskratio_all/sellsideriskratio_all_light.html"></iframe>
                         </div>
                     </div>
 
@@ -493,11 +598,12 @@
                     <div class="indicator-title">Global Liquidity Bands & ETH</div>
                     <div class="indicator-description">ETH below green line → BUY opportunity</div>
                     <div class="iframe-container">
+                        <div class="fullscreen-btn" onclick="openFullscreen('https://cryptoquant.com/asset/eth/chart/eth2/total-value-staked?window=DAY&priceScale=log&metricScale=linear&chartStyle=line&sma=0&ema=0')">⛶</div>
                         <div class="loading-overlay">
                             <div class="spinner"></div>
                             Loading ETH Liquidity...
                         </div>
-                        <iframe src="https://alphaextract.webflow.io/charts/liquidity-eth-bands"></iframe>
+                        <iframe src="https://cryptoquant.com/analytics/query/66e5e9e042286374a3636edd?v=66e5e9e042286374a3636ede"></iframe>
                     </div>
                 </div>
 
@@ -659,7 +765,53 @@
         </div>
     </div>
 
+    <!-- Fullscreen Modal -->
+    <div class="fullscreen-modal" id="fullscreenModal">
+        <div class="fullscreen-content">
+            <div class="fullscreen-header">
+                <span id="fullscreenTitle">Chart Viewer</span>
+                <button class="close-fullscreen" onclick="closeFullscreen()">×</button>
+            </div>
+            <iframe class="fullscreen-iframe" id="fullscreenIframe" src=""></iframe>
+        </div>
+    </div>
+
     <script>
+        // Fullscreen functionality
+        function openFullscreen(url) {
+            const modal = document.getElementById('fullscreenModal');
+            const iframe = document.getElementById('fullscreenIframe');
+            const title = document.getElementById('fullscreenTitle');
+            
+            iframe.src = url;
+            title.textContent = 'Trading Indicator - Fullscreen View';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFullscreen() {
+            const modal = document.getElementById('fullscreenModal');
+            const iframe = document.getElementById('fullscreenIframe');
+            
+            modal.style.display = 'none';
+            iframe.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFullscreen();
+            }
+        });
+
+        // Close on background click
+        document.getElementById('fullscreenModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeFullscreen();
+            }
+        });
+
         // Remove loading overlays when iframes load
         document.addEventListener('DOMContentLoaded', function() {
             const iframes = document.querySelectorAll('iframe');
